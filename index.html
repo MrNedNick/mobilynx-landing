@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mobilynx — Performance Mobile Traffic that Converts</title>
+<meta name="description" content="Mobilynx drives high-volume, quality mobile + desktop traffic for app promotion, VPN and e-commerce. POP, PUSH and IN-APP performance campaigns on CPA, CPI, CPL and CPS." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* Tropical palette — warm yellow + jungle green */
+    --sun:#FFD23F;          /* warm yellow */
+    --mango:#FFB22C;        /* amber */
+    --lime:#9BE564;         /* fresh lime */
+    --emerald:#14B86A;      /* tropical green */
+    --jungle:#0A3D2C;       /* deep jungle */
+    --jungle-2:#06241A;     /* darker */
+    --ink:#062018;
+    --cream:#FFFBEF;        /* warm off-white */
+    --glass:rgba(255,255,255,.08);
+    --glass-line:rgba(255,255,255,.14);
+    --txt:#E8F5EC;
+    --txt-dim:rgba(232,245,236,.66);
+    --radius:22px;
+    --shadow:0 24px 60px -20px rgba(3,30,20,.55);
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--jungle-2);
+    color:var(--txt);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4,.font-display{font-family:'Sora',sans-serif;line-height:1.08;letter-spacing:-.02em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .accent{color:var(--sun)}
+  .grad-text{
+    background:linear-gradient(100deg,var(--sun),var(--lime) 55%,var(--emerald));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* ---------- animated tropical background ---------- */
+  .bg-orbs{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
+    radial-gradient(140% 120% at 50% -10%, #0E5236 0%, var(--jungle-2) 55%, #04150F 100%);}
+  .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 16s ease-in-out infinite}
+  .orb.a{width:520px;height:520px;background:radial-gradient(circle,var(--sun),transparent 70%);top:-120px;left:-80px}
+  .orb.b{width:480px;height:480px;background:radial-gradient(circle,var(--emerald),transparent 70%);top:30%;right:-120px;animation-delay:-4s}
+  .orb.c{width:420px;height:420px;background:radial-gradient(circle,var(--lime),transparent 70%);bottom:-120px;left:30%;animation-delay:-8s}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.08)}66%{transform:translate(-30px,25px) scale(.95)}}
+  .grain{position:fixed;inset:0;z-index:-1;opacity:.04;pointer-events:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:50;transition:.3s}
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:18px;
+    margin-top:16px;padding:12px 20px;border-radius:18px;
+    background:rgba(8,32,24,.5);backdrop-filter:blur(16px);
+    border:1px solid var(--glass-line);box-shadow:var(--shadow)}
+  .logo{display:flex;align-items:center;gap:11px;font-family:'Sora';font-weight:800;font-size:1.22rem;letter-spacing:-.03em}
+  .logo .mark{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--sun),var(--emerald));box-shadow:0 8px 20px -6px rgba(255,210,63,.5)}
+  .logo .mark svg{width:20px;height:20px}
+  .nav-links{display:flex;gap:30px;font-size:.93rem;font-weight:500;color:var(--txt-dim)}
+  .nav-links a{transition:.2s;position:relative}
+  .nav-links a:hover{color:var(--sun)}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.95rem;
+    padding:13px 24px;border-radius:13px;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s;white-space:nowrap}
+  .btn-primary{background:linear-gradient(100deg,var(--sun),var(--mango));color:#3a2700;
+    box-shadow:0 12px 28px -10px rgba(255,178,44,.7)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 36px -10px rgba(255,178,44,.85)}
+  .btn-ghost{background:var(--glass);color:var(--txt);border:1px solid var(--glass-line)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+  .nav .btn{padding:11px 20px}
+  .burger{display:none;background:none;border:none;color:var(--txt);cursor:pointer}
+
+  /* ---------- hero ---------- */
+  .hero{padding:78px 0 60px;position:relative}
+  .pill{display:inline-flex;align-items:center;gap:9px;font-size:.82rem;font-weight:600;
+    padding:8px 16px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-line);
+    color:var(--txt-dim);margin-bottom:26px}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(155,229,100,.22);animation:pulse 2s infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 8px rgba(155,229,100,0)}}
+  .hero h1{font-size:clamp(2.6rem,6.4vw,4.7rem);font-weight:800;max-width:14ch}
+  .hero .lead{font-size:clamp(1.05rem,2vw,1.28rem);color:var(--txt-dim);max-width:60ch;margin:26px 0 36px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .trust{display:flex;gap:30px;flex-wrap:wrap;margin-top:46px;color:var(--txt-dim);font-size:.9rem}
+  .trust b{color:var(--txt);font-family:'Sora';font-weight:700}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:30px 0 10px}
+  .stat{padding:26px 22px;border-radius:var(--radius);background:var(--glass);
+    border:1px solid var(--glass-line);backdrop-filter:blur(8px)}
+  .stat .num{font-family:'Sora';font-weight:800;font-size:clamp(1.9rem,3.6vw,2.7rem)}
+  .stat .lbl{color:var(--txt-dim);font-size:.9rem;margin-top:4px}
+
+  /* ---------- section base ---------- */
+  section{position:relative}
+  .sec{padding:84px 0}
+  .eyebrow{font-size:.82rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--sun);margin-bottom:14px}
+  .sec h2{font-size:clamp(2rem,4.4vw,3.1rem);font-weight:800;max-width:18ch}
+  .sec .sub{color:var(--txt-dim);max-width:62ch;margin-top:18px;font-size:1.07rem}
+  .center{text-align:center;margin:0 auto}
+  .center h2,.center .sub{margin-left:auto;margin-right:auto}
+
+  /* ---------- bento solutions ---------- */
+  .bento{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:46px}
+  .card{padding:30px;border-radius:var(--radius);background:var(--glass);
+    border:1px solid var(--glass-line);transition:.3s;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;inset:0;opacity:0;transition:.3s;
+    background:radial-gradient(120% 80% at 50% 0%,rgba(255,210,63,.14),transparent 70%)}
+  .card:hover{transform:translateY(-6px);border-color:rgba(255,210,63,.4)}
+  .card:hover::before{opacity:1}
+  .card .ic{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;margin-bottom:20px;
+    background:linear-gradient(135deg,rgba(255,210,63,.22),rgba(20,184,106,.22));border:1px solid var(--glass-line)}
+  .card .ic svg{width:26px;height:26px;stroke:var(--sun)}
+  .card h3{font-size:1.28rem;font-weight:700;margin-bottom:10px}
+  .card p{color:var(--txt-dim);font-size:.98rem}
+  .card.tall{grid-row:span 2}
+  .tag{display:inline-block;font-size:.78rem;font-weight:600;color:var(--lime);
+    background:rgba(155,229,100,.12);padding:5px 12px;border-radius:999px;margin:5px 6px 0 0}
+
+  /* ---------- traffic sources ---------- */
+  .sources{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
+  .src{padding:34px 30px;border-radius:var(--radius);position:relative;overflow:hidden;
+    background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--glass-line);transition:.3s}
+  .src:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .src .big{font-family:'Sora';font-weight:800;font-size:2.2rem;background:linear-gradient(100deg,var(--sun),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .src p{color:var(--txt-dim);margin-top:12px}
+  .src .arrow{position:absolute;top:30px;right:30px;opacity:.4;transition:.3s}
+  .src:hover .arrow{opacity:1;transform:translate(4px,-4px)}
+
+  /* ---------- targeting / features split ---------- */
+  .split{display:grid;grid-template-columns:1.05fr 1fr;gap:54px;align-items:center;margin-top:20px}
+  .feat-list{display:flex;flex-direction:column;gap:16px;margin-top:30px}
+  .feat{display:flex;gap:16px;align-items:flex-start;padding:18px 20px;border-radius:16px;
+    background:var(--glass);border:1px solid var(--glass-line);transition:.25s}
+  .feat:hover{border-color:rgba(155,229,100,.4);transform:translateX(4px)}
+  .feat .check{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--emerald),var(--lime));color:var(--ink)}
+  .feat h4{font-size:1.04rem;font-weight:700}
+  .feat p{color:var(--txt-dim);font-size:.92rem;margin-top:2px}
+  .target-card{padding:36px;border-radius:var(--radius);background:linear-gradient(155deg,rgba(20,184,106,.16),rgba(255,210,63,.08));
+    border:1px solid var(--glass-line);box-shadow:var(--shadow)}
+  .target-card h3{font-size:1.3rem;margin-bottom:22px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-size:.9rem;font-weight:500;padding:10px 16px;border-radius:12px;
+    background:rgba(255,255,255,.06);border:1px solid var(--glass-line);transition:.2s}
+  .chip:hover{background:rgba(255,210,63,.16);border-color:var(--sun);color:var(--sun)}
+
+  /* ---------- pricing models ---------- */
+  .models{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:46px}
+  .model{padding:32px 26px;border-radius:var(--radius);text-align:center;background:var(--glass);
+    border:1px solid var(--glass-line);transition:.3s}
+  .model:hover{transform:translateY(-6px);background:linear-gradient(160deg,rgba(255,210,63,.14),rgba(20,184,106,.1));border-color:rgba(255,210,63,.4)}
+  .model .code{font-family:'Sora';font-weight:800;font-size:2rem;color:var(--sun)}
+  .model p{color:var(--txt-dim);font-size:.92rem;margin-top:8px}
+
+  /* ---------- marquee ---------- */
+  .marquee{overflow:hidden;padding:26px 0;border-top:1px solid var(--glass-line);border-bottom:1px solid var(--glass-line);margin-top:10px}
+  .marquee-track{display:flex;gap:54px;white-space:nowrap;animation:scroll 26s linear infinite;width:max-content}
+  .marquee-track span{font-family:'Sora';font-weight:700;font-size:1.4rem;color:var(--txt-dim);display:flex;align-items:center;gap:54px}
+  .marquee-track span::after{content:"✦";color:var(--sun);font-size:1rem}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- CTA / contact ---------- */
+  .cta-wrap{padding:54px;border-radius:32px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--emerald),var(--jungle));border:1px solid rgba(255,210,63,.25);box-shadow:var(--shadow)}
+  .cta-wrap::after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,210,63,.4),transparent 70%);top:-140px;right:-80px;filter:blur(30px)}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;position:relative;z-index:1;align-items:center}
+  form{display:flex;flex-direction:column;gap:14px}
+  .field label{font-size:.85rem;font-weight:600;color:var(--txt);display:block;margin-bottom:6px}
+  input,textarea{width:100%;padding:14px 16px;border-radius:13px;border:1px solid var(--glass-line);
+    background:rgba(0,0,0,.22);color:var(--cream);font-family:inherit;font-size:.97rem;transition:.2s}
+  input:focus,textarea:focus{outline:none;border-color:var(--sun);background:rgba(0,0,0,.34)}
+  textarea{resize:vertical;min-height:108px}
+  .form-note{font-size:.85rem;color:rgba(255,255,255,.75);margin-top:4px}
+  .contact-left h2{font-size:clamp(1.9rem,3.6vw,2.7rem);font-weight:800}
+  .contact-left p{color:rgba(255,255,255,.82);margin:16px 0 26px;font-size:1.05rem}
+  .mail{display:inline-flex;align-items:center;gap:11px;font-family:'Sora';font-weight:700;font-size:1.15rem;
+    padding:14px 20px;border-radius:14px;background:rgba(0,0,0,.25);border:1px solid rgba(255,210,63,.35)}
+  .mail svg{stroke:var(--sun)}
+  .ok-msg{display:none;background:rgba(155,229,100,.16);border:1px solid var(--lime);color:var(--lime);
+    padding:13px 16px;border-radius:13px;font-weight:600;font-size:.95rem}
+
+  /* ---------- footer ---------- */
+  footer{padding:54px 0 30px;border-top:1px solid var(--glass-line);margin-top:80px}
+  .foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:34px}
+  .foot-col h5{font-family:'Sora';font-weight:700;font-size:.95rem;margin-bottom:14px}
+  .foot-col a{display:block;color:var(--txt-dim);font-size:.92rem;margin-bottom:9px;transition:.2s}
+  .foot-col a:hover{color:var(--sun)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;
+    padding-top:24px;border-top:1px solid var(--glass-line);color:var(--txt-dim);font-size:.88rem}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:.7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:920px){
+    .nav-links,.nav .btn{display:none}
+    .burger{display:block}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .bento,.sources,.models{grid-template-columns:1fr}
+    .card.tall{grid-row:auto}
+    .split,.contact-grid{grid-template-columns:1fr;gap:34px}
+    .cta-wrap{padding:32px 24px}
+  }
+</style>
+</head>
+<body>
+  <div class="bg-orbs"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+  <div class="grain"></div>
+
+  <header>
+    <div class="wrap">
+      <nav class="nav">
+        <a href="#top" class="logo">
+          <span class="mark">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 18V8l5 5 3-3 3 3 5-5v10" stroke="#062018" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Mobilynx
+        </a>
+        <div class="nav-links">
+          <a href="#solutions">Solutions</a>
+          <a href="#sources">Traffic</a>
+          <a href="#targeting">Targeting</a>
+          <a href="#models">Pricing</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a href="#contact" class="btn btn-primary">Start driving traffic</a>
+        <button class="burger" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <span class="pill reveal"><span class="dot"></span> Performance traffic network · POP · PUSH · IN-APP</span>
+        <h1 class="reveal">Drive <span class="grad-text">high-volume, high-quality</span> mobile traffic that converts.</h1>
+        <p class="lead reveal">Mobilynx delivers the most useful mobile apps and services to everyone. We help our clients reach huge volumes of quality customers through mobile&nbsp;+&nbsp;desktop traffic — optimized in real time, paid on performance.</p>
+        <div class="hero-cta reveal">
+          <a href="#contact" class="btn btn-primary">Launch a campaign
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#solutions" class="btn btn-ghost">Explore solutions</a>
+        </div>
+
+        <div class="stats">
+          <div class="stat reveal"><div class="num grad-text" data-count="20" data-suffix="M+">0</div><div class="lbl">Daily ad impressions</div></div>
+          <div class="stat reveal"><div class="num grad-text" data-count="20" data-suffix="+">0</div><div class="lbl">GEOs covered worldwide</div></div>
+          <div class="stat reveal"><div class="num grad-text" data-count="99" data-suffix="%">0</div><div class="lbl">Verified, fraud-screened traffic</div></div>
+          <div class="stat reveal"><div class="num grad-text" data-count="24" data-suffix="/7">0</div><div class="lbl">Real-time optimization</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTIONS -->
+    <section class="sec" id="solutions">
+      <div class="wrap">
+        <div class="center" style="max-width:760px">
+          <div class="eyebrow reveal">What we drive</div>
+          <h2 class="reveal">Built for the verticals we know best</h2>
+          <p class="sub reveal">We specialize in three high-performance verticals — mobile apps, VPN & privacy products and e-commerce — moving the actions that matter from first install to final sale.</p>
+        </div>
+        <div class="bento">
+          <div class="card tall reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+            <h3>Mobile app promotion</h3>
+            <p>High-intent installs, registrations and free trials at scale for iOS & Android apps — clean users that activate and stick around, not bounce.</p>
+            <div style="margin-top:18px">
+              <span class="tag">Installs</span><span class="tag">Registrations</span><span class="tag">Free trials</span><span class="tag">In-app events</span>
+            </div>
+          </div>
+          <div class="card reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
+            <h3>VPN & privacy apps</h3>
+            <p>Subscription-driving campaigns for VPN and security products — installs and trials that convert into paying, long-retention users.</p>
+            <span class="tag">Subscriptions</span><span class="tag">Trials</span><span class="tag">SOI / DOI</span>
+          </div>
+          <div class="card reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6h16l-1.5 9.5a2 2 0 0 1-2 1.5H8.5a2 2 0 0 1-2-1.6L5 4H2"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg></div>
+            <h3>E-commerce</h3>
+            <p>Revenue-grade traffic for online stores and offers — purchases, sales and leads measured on real performance.</p>
+            <span class="tag">Sales</span><span class="tag">Purchases</span><span class="tag">Leads</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAFFIC SOURCES -->
+    <section class="sec" id="sources">
+      <div class="wrap">
+        <div class="center" style="max-width:760px">
+          <div class="eyebrow reveal">Where it comes from</div>
+          <h2 class="reveal">Three powerful traffic channels</h2>
+          <p class="sub reveal">Reach the right users wherever they are — at the lowest cost, with the highest intent.</p>
+        </div>
+        <div class="sources">
+          <div class="src reveal">
+            <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M17 7H8m9 0v9" stroke="var(--sun)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="big">POP</div>
+            <p>Popunder ads provide massive reach at the lowest cost — perfect for volume testing and rapid scaling.</p>
+          </div>
+          <div class="src reveal">
+            <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M17 7H8m9 0v9" stroke="var(--sun)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="big">PUSH</div>
+            <p>Instantly deliver your brand's message or offer directly to a user's device — high visibility, high engagement.</p>
+          </div>
+          <div class="src reveal">
+            <span class="arrow"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M17 7H8m9 0v9" stroke="var(--sun)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="big">IN-APP</div>
+            <p>An effective strategy for app developers — native placements that reach engaged, in-context audiences.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- marquee -->
+    <div class="marquee reveal">
+      <div class="marquee-track">
+        <span>Mobile&nbsp;+&nbsp;Desktop</span><span>Real-time optimization</span><span>Verified traffic</span><span>Global GEOs</span><span>Performance-based</span>
+        <span>Mobile&nbsp;+&nbsp;Desktop</span><span>Real-time optimization</span><span>Verified traffic</span><span>Global GEOs</span><span>Performance-based</span>
+      </div>
+    </div>
+
+    <!-- TARGETING / FEATURES -->
+    <section class="sec" id="targeting">
+      <div class="wrap split">
+        <div>
+          <div class="eyebrow reveal">Precision & quality</div>
+          <h2 class="reveal" style="font-size:clamp(2rem,4.4vw,3.1rem);font-weight:800">Pinpoint targeting, optimized every second.</h2>
+          <p class="sub reveal">We combine algorithmic and manual real-time campaign optimization with strict quality assurance — so every dollar buys traffic that actually performs.</p>
+          <div class="feat-list">
+            <div class="feat reveal">
+              <span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div><h4>Real-time optimization</h4><p>Algorithmic + manual tuning of every campaign, around the clock.</p></div>
+            </div>
+            <div class="feat reveal">
+              <span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div><h4>Verified, quality traffic</h4><p>Quality assurance and fraud screening on every source.</p></div>
+            </div>
+            <div class="feat reveal">
+              <span class="check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <div><h4>Performance pricing only</h4><p>You pay for results — CPA, CPI, CPL and CPS models.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="target-card reveal">
+          <h3>Advanced targeting</h3>
+          <div class="chips">
+            <span class="chip">🌍 Country</span>
+            <span class="chip">🗣️ Language</span>
+            <span class="chip">🌐 Browser</span>
+            <span class="chip">💻 OS</span>
+            <span class="chip">📱 Device</span>
+            <span class="chip">📶 Carrier</span>
+          </div>
+          <p style="color:var(--txt-dim);margin-top:24px;font-size:.95rem">Slice and combine layers to reach exactly the audience your offer needs — and exclude everything that wastes spend.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING MODELS -->
+    <section class="sec" id="models">
+      <div class="wrap">
+        <div class="center" style="max-width:760px">
+          <div class="eyebrow reveal">How you pay</div>
+          <h2 class="reveal">Performance-based pricing models</h2>
+          <p class="sub reveal">Pick the model that matches your KPI. Every option is fully performance-based — no wasted spend.</p>
+        </div>
+        <div class="models">
+          <div class="model reveal"><div class="code">CPA</div><p>Cost per action</p></div>
+          <div class="model reveal"><div class="code">CPI</div><p>Cost per install</p></div>
+          <div class="model reveal"><div class="code">CPL</div><p>Cost per lead</p></div>
+          <div class="model reveal"><div class="code">CPS</div><p>Cost per sale</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sec" id="contact">
+      <div class="wrap">
+        <div class="cta-wrap reveal">
+          <div class="contact-grid">
+            <div class="contact-left">
+              <h2>Ready to scale your traffic?</h2>
+              <p>Tell us about your offer and GEOs. Our team will get back to you with a tailored plan to drive quality volume — fast.</p>
+              <a href="mailto:sales@mobilynx.io" class="mail">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke-width="2"/><path d="m4 7 8 6 8-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                sales@mobilynx.io
+              </a>
+            </div>
+            <div>
+              <form id="contactForm">
+                <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Your name" required /></div>
+                <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@company.com" required /></div>
+                <div class="field"><label for="msg">Message</label><textarea id="msg" name="message" placeholder="Tell us about your offer, vertical and target GEOs…" required></textarea></div>
+                <button type="submit" class="btn btn-primary" style="justify-content:center">Send message
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="ok-msg" id="okMsg">✓ Thanks! We'll be in touch shortly at <b id="okMail"></b>.</div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-top">
+        <div class="foot-col" style="max-width:300px">
+          <a href="#top" class="logo" style="margin-bottom:16px">
+            <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18V8l5 5 3-3 3 3 5-5v10" stroke="#062018" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Mobilynx
+          </a>
+          <p style="color:var(--txt-dim);font-size:.92rem">High-volume, high-quality mobile + desktop traffic. Optimized in real time, paid on performance.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Solutions</h5>
+          <a href="#solutions">Mobile apps</a>
+          <a href="#solutions">VPN & privacy</a>
+          <a href="#solutions">E-commerce</a>
+        </div>
+        <div class="foot-col">
+          <h5>Traffic</h5>
+          <a href="#sources">POP</a>
+          <a href="#sources">PUSH</a>
+          <a href="#sources">IN-APP</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <a href="mailto:sales@mobilynx.io">sales@mobilynx.io</a>
+          <a href="#contact">Start a campaign</a>
+          <a href="#">Privacy policy</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Mobilynx. All rights reserved.</span>
+        <span>Built for performance traffic worldwide.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'), (i%6)*60); io.unobserve(e.target);} });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Animated stat counters
+    const counted = new WeakSet();
+    const cio = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(!e.isIntersecting || counted.has(e.target)) return;
+        counted.add(e.target);
+        const el=e.target, target=parseFloat(el.dataset.count), suffix=el.dataset.suffix||'';
+        const dur=1400, t0=performance.now();
+        const tick=(now)=>{ const p=Math.min((now-t0)/dur,1); const ease=1-Math.pow(1-p,3);
+          let v=target*ease; v = target%1===0 ? Math.round(v) : v.toFixed(1);
+          el.textContent=v+suffix; if(p<1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+    },{threshold:.5});
+    document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+    // Contact form (demo handler)
+    const form=document.getElementById('contactForm');
+    form.addEventListener('submit',(ev)=>{
+      ev.preventDefault();
+      document.getElementById('okMail').textContent=document.getElementById('email').value||'sales@mobilynx.io';
+      document.getElementById('okMsg').style.display='block';
+      form.querySelectorAll('input,textarea').forEach(f=>f.value='');
+    });
+
+    // mobile menu styling
+    const style=document.createElement('style');
+    style.textContent='.nav-links.mobile-open{display:flex;position:absolute;top:74px;left:24px;right:24px;flex-direction:column;gap:16px;padding:22px;background:rgba(8,32,24,.96);border:1px solid var(--glass-line);border-radius:18px;backdrop-filter:blur(16px)}';
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
