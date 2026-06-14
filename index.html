@@ -57,6 +57,41 @@
   .grain{position:fixed;inset:0;z-index:-1;opacity:.04;pointer-events:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
+  /* ---------- living jungle ---------- */
+  .hero .wrap{position:relative;z-index:3}
+  .hero{overflow:hidden}
+  .jungle{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .jungle .layer{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s cubic-bezier(.2,.8,.3,1);will-change:transform}
+  .jungle svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .jungle .rays{mix-blend-mode:screen;opacity:.55}
+  .jungle .motes{position:absolute;inset:0;width:100%;height:100%}
+  .hero .jungle{opacity:.95}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;z-index:2;pointer-events:none;
+    background:linear-gradient(to top,rgba(4,21,15,.85),transparent)}
+  footer{position:relative;overflow:hidden}
+  footer .wrap{position:relative;z-index:1}
+  .jungle-foot{height:240px;top:auto;bottom:0;opacity:.5}
+
+  /* organic motion */
+  .frond{transform-box:fill-box;transform-origin:50% 100%;
+    animation:swayF var(--dur,7s) ease-in-out var(--delay,0s) infinite}
+  .vine{transform-box:fill-box;transform-origin:50% 0%;
+    animation:swayV var(--dur,8s) ease-in-out var(--delay,0s) infinite}
+  .drift{animation:drift var(--dur,16s) linear var(--delay,0s) infinite}
+  .ray{transform-box:fill-box;transform-origin:50% 0%;animation:rayBreathe var(--dur,11s) ease-in-out var(--delay,0s) infinite}
+  @keyframes swayF{0%,100%{transform:rotate(calc(var(--amp,3deg)*-1)) scaleY(1)}
+    50%{transform:rotate(var(--amp,3deg)) scaleY(1.035)}}
+  @keyframes swayV{0%,100%{transform:rotate(calc(var(--amp,6deg)*-1))}
+    50%{transform:rotate(var(--amp,6deg))}}
+  @keyframes drift{0%{transform:translate(0,-60px) rotate(0deg);opacity:0}
+    8%{opacity:.7}88%{opacity:.7}
+    100%{transform:translate(var(--dx,140px),var(--dy,780px)) rotate(var(--rot,520deg));opacity:0}}
+  @keyframes rayBreathe{0%,100%{opacity:.25;transform:translateX(0) scaleX(1)}
+    50%{opacity:.6;transform:translateX(18px) scaleX(1.06)}}
+  @media(prefers-reduced-motion:reduce){
+    .frond,.vine,.drift,.ray{animation:none}
+  }
+
   /* ---------- nav ---------- */
   header{position:sticky;top:0;z-index:50;transition:.3s}
   .nav{display:flex;align-items:center;justify-content:space-between;gap:18px;
@@ -246,6 +281,7 @@
   <main id="top">
     <!-- HERO -->
     <section class="hero">
+      <div class="jungle" id="heroJungle" aria-hidden="true"></div>
       <div class="wrap">
         <span class="pill reveal"><span class="dot"></span> Performance traffic network · POP · PUSH · IN-APP</span>
         <h1 class="reveal">Drive <span class="grad-text">high-volume, high-quality</span> mobile traffic that converts.</h1>
@@ -420,6 +456,7 @@
   </main>
 
   <footer>
+    <div class="jungle jungle-foot" id="footJungle" aria-hidden="true"></div>
     <div class="wrap">
       <div class="foot-top">
         <div class="foot-col" style="max-width:300px">
@@ -491,6 +528,176 @@
     const style=document.createElement('style');
     style.textContent='.nav-links.mobile-open{display:flex;position:absolute;top:74px;left:24px;right:24px;flex-direction:column;gap:16px;padding:22px;background:rgba(8,32,24,.96);border:1px solid var(--glass-line);border-radius:18px;backdrop-filter:blur(16px)}';
     document.head.appendChild(style);
+  </script>
+
+  <!-- ===== Living jungle engine ===== -->
+  <script>
+  (function(){
+    const NS='http://www.w3.org/2000/svg';
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rnd=(a,b)=>a+Math.random()*(b-a);
+    const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+    // teardrop leaflet, base at (0,0), tip up at (0,-L)
+    const leaf=(L,w)=>`M0 0 C ${-w} ${-L*0.3} ${-w*0.55} ${-L*0.85} 0 ${-L} C ${w*0.55} ${-L*0.85} ${w} ${-L*0.3} 0 0 Z`;
+
+    // a pinnate frond (palm/fern), grows upward from (0,0)
+    function frondInner({len,leaflets,maxLeaf,leafW,bow,fill,stem}){
+      let s='', cx=bow, ty=-len;
+      s+=`<path d="M0 0 Q ${bow*0.45} ${ty*0.5} ${cx} ${ty}" fill="none" stroke="${stem}" stroke-width="${Math.max(2,len*0.013)}" stroke-linecap="round"/>`;
+      for(let i=1;i<=leaflets;i++){
+        const t=i/(leaflets+1), mt=1-t;
+        const px=2*mt*t*(bow*0.45)+t*t*cx, py=2*mt*t*(ty*0.5)+t*t*ty;
+        const Ll=maxLeaf*(0.4+0.6*Math.sin(Math.PI*Math.min(1,t*1.05))), ang=18+58*(1-t);
+        s+=`<path d="${leaf(Ll,leafW)}" fill="${fill}" transform="translate(${px} ${py}) rotate(${-ang})"/>`;
+        s+=`<path d="${leaf(Ll,leafW)}" fill="${fill}" transform="translate(${px} ${py}) rotate(${ang})"/>`;
+      }
+      s+=`<path d="${leaf(maxLeaf*0.55,leafW*0.8)}" fill="${fill}" transform="translate(${cx} ${ty})"/>`;
+      return s;
+    }
+    // broad banana leaf with veins
+    function bananaInner({len,wid,fill,vein}){
+      let s=`<path d="${leaf(len,wid)}" fill="${fill}"/>`;
+      s+=`<path d="M0 -5 L0 ${-(len-8)}" stroke="${vein}" stroke-width="${len*0.02}" fill="none" stroke-linecap="round"/>`;
+      for(let i=1;i<=6;i++){const y=-(len*i/7), vx=wid*0.62*(1-i/8);
+        s+=`<path d="M0 ${y} L ${-vx} ${y-vx*0.7}" stroke="${vein}" stroke-width="${len*0.011}" fill="none" stroke-linecap="round"/>`;
+        s+=`<path d="M0 ${y} L ${vx} ${y-vx*0.7}" stroke="${vein}" stroke-width="${len*0.011}" fill="none" stroke-linecap="round"/>`;}
+      return s;
+    }
+    // hanging vine/liana, grows downward from (0,0)
+    function vineInner({len,leaves,bow,fill,stem}){
+      let s='', cx=bow, ty=len;
+      s+=`<path d="M0 0 Q ${bow*0.6} ${ty*0.45} ${cx} ${ty}" fill="none" stroke="${stem}" stroke-width="3.2" stroke-linecap="round"/>`;
+      for(let i=1;i<=leaves;i++){const t=i/(leaves+1), mt=1-t;
+        const px=2*mt*t*(bow*0.6)+t*t*cx, py=2*mt*t*(ty*0.45)+t*t*ty;
+        const Ll=rnd(20,34), side=i%2?1:-1;
+        s+=`<path d="${leaf(Ll,Ll*0.5)}" fill="${fill}" transform="translate(${px} ${py}) rotate(${side*55+180})"/>`;}
+      s+=`<path d="${leaf(28,14)}" fill="${fill}" transform="translate(${cx} ${ty}) rotate(180)"/>`;
+      return s;
+    }
+
+    const wrapFrond=(x,y,rot,sc,inner)=>{
+      const dur=rnd(6,10).toFixed(2), amp=rnd(2,5).toFixed(1), del=(-rnd(0,8)).toFixed(2);
+      return `<g transform="translate(${x} ${y}) rotate(${rot}) scale(${sc})"><g class="frond" style="--dur:${dur}s;--amp:${amp}deg;--delay:${del}s">${inner}</g></g>`;
+    };
+    const wrapVine=(x,y,sc,inner)=>{
+      const dur=rnd(7,12).toFixed(2), amp=rnd(3,7).toFixed(1), del=(-rnd(0,9)).toFixed(2);
+      return `<g transform="translate(${x} ${y}) scale(${sc})"><g class="vine" style="--dur:${dur}s;--amp:${amp}deg;--delay:${del}s">${inner}</g></g>`;
+    };
+    const driftLeaf=(x)=>{
+      const dur=rnd(13,22).toFixed(1), del=(-rnd(0,22)).toFixed(1), sc=rnd(.7,1.3).toFixed(2);
+      const dx=(rnd(60,240)*(Math.random()<.5?-1:1)).toFixed(0), dy=rnd(620,840).toFixed(0), rot=(rnd(380,760)*(Math.random()<.5?-1:1)).toFixed(0);
+      return `<g transform="translate(${x} 0)"><g class="drift" style="--dur:${dur}s;--delay:${del}s;--dx:${dx}px;--dy:${dy}px;--rot:${rot}deg"><g transform="scale(${sc})"><path d="${leaf(40,18)}" fill="url(#dleaf)"/><path d="M0 -4 L0 -36" stroke="rgba(3,28,18,.4)" stroke-width="1.6" fill="none"/></g></g></g>`;
+    };
+
+    const svgLayer=(depth,pAR,opacity,content)=>
+      `<svg class="layer" data-depth="${depth}" style="opacity:${opacity}" viewBox="0 0 1440 900" preserveAspectRatio="${pAR}" xmlns="${NS}">${content}</svg>`;
+
+    const MASTER_DEFS=`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <linearGradient id="fgBack" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#05311f"/><stop offset="1" stop-color="#0a5836"/></linearGradient>
+      <linearGradient id="fgMid" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#0a5e3a"/><stop offset="1" stop-color="#19a55e"/></linearGradient>
+      <linearGradient id="fgFront" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#13935a"/><stop offset=".6" stop-color="#2fbf72"/><stop offset="1" stop-color="#a9ec6f"/></linearGradient>
+      <linearGradient id="vleaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c6b43"/><stop offset="1" stop-color="#2fc777"/></linearGradient>
+      <linearGradient id="dleaf" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#19a55e"/><stop offset="1" stop-color="#d4ee72"/></linearGradient>
+      <linearGradient id="rayGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffde78" stop-opacity=".5"/><stop offset="1" stop-color="#ffde78" stop-opacity="0"/></linearGradient>
+    </defs></svg>`;
+
+    function rayLayer(){
+      const beams=[{x:240,w:150,r:-7},{x:600,w:210,r:5},{x:1010,w:170,r:11},{x:1300,w:130,r:-5}];
+      let b='';
+      beams.forEach((m,i)=>{ b+=`<g class="ray" style="--dur:${(9+i*1.6).toFixed(1)}s;--delay:${(-i*2.1).toFixed(1)}s"><polygon points="${m.x},0 ${m.x+m.w},0 ${m.x+m.w*1.7-30},900 ${m.x-30},900" fill="url(#rayGrad)" transform="rotate(${m.r} ${m.x+m.w/2} 0)"/></g>`; });
+      return svgLayer(5,'xMidYMin slice',0.6,b);
+    }
+    function foliageRow(yBase, xs, fill, stem, lenR, leafR, sc, kind){
+      let g='';
+      xs.forEach(x=>{
+        const rot=rnd(-30,30).toFixed(1)*(x<200?1:x>1240?-1:1);
+        if(kind==='banana' && Math.random()<.4){
+          g+=wrapFrond(x,yBase,rnd(-18,18).toFixed(1),rnd(sc[0],sc[1]).toFixed(2),
+            bananaInner({len:rnd(lenR[0],lenR[1]),wid:rnd(28,46),fill,vein:'rgba(4,30,20,.35)'}));
+        }else{
+          g+=wrapFrond(x,yBase,rot,rnd(sc[0],sc[1]).toFixed(2),
+            frondInner({len:rnd(lenR[0],lenR[1]),leaflets:Math.round(rnd(8,13)),maxLeaf:rnd(leafR[0],leafR[1]),leafW:rnd(9,14),bow:rnd(-18,18),fill,stem}));
+        }
+      });
+      return g;
+    }
+
+    function buildHero(){
+      const host=document.getElementById('heroJungle'); if(!host) return;
+      host.insertAdjacentHTML('beforeend', MASTER_DEFS);
+      // rays
+      host.insertAdjacentHTML('beforeend', rayLayer());
+      // back foliage
+      const backX=[]; for(let x=40;x<=1410;x+=rnd(80,120))backX.push(Math.round(x));
+      host.insertAdjacentHTML('beforeend', svgLayer(7,'xMidYMax slice',0.5, foliageRow(895, backX,'url(#fgBack)','rgba(4,28,18,.5)',[120,185],[40,60],[.8,1.1],'frond')));
+      // hanging vines
+      let vines=''; [110,270,1170,1340,610,860].forEach((x,i)=> vines+=wrapVine(x,0,rnd(.7,1.15).toFixed(2), vineInner({len:rnd(230,430),leaves:Math.round(rnd(6,11)),bow:rnd(-60,60),fill:'url(#vleaf)',stem:'rgba(8,52,34,.85)'})) );
+      host.insertAdjacentHTML('beforeend', svgLayer(13,'xMidYMin slice',0.85, vines));
+      // mid foliage
+      const midX=[20,95,170,255,1190,1270,1350,1420,560,780,990];
+      host.insertAdjacentHTML('beforeend', svgLayer(17,'xMidYMax slice',0.72, foliageRow(897, midX,'url(#fgMid)','rgba(6,40,26,.55)',[175,255],[55,82],[.85,1.15],'frond')));
+      // front foliage (big corner clusters)
+      const frontX=[35,110,190,1255,1335,1410,640,920];
+      host.insertAdjacentHTML('beforeend', svgLayer(28,'xMidYMax slice',0.92, foliageRow(900, frontX,'url(#fgFront)','rgba(8,52,34,.5)',[235,350],[78,120],[1.05,1.45],'banana')));
+      // drifting leaves
+      let drift=''; [180,460,720,980,1240].forEach(x=> drift+=driftLeaf(x));
+      host.insertAdjacentHTML('beforeend', svgLayer(11,'xMidYMid slice',1, drift));
+      // motes canvas
+      const cv=document.createElement('canvas'); cv.className='layer motes'; cv.dataset.depth='4'; host.appendChild(cv);
+      initMotes(cv, host);
+      parallax(host, host.closest('section'));
+    }
+
+    function buildFooter(){
+      const host=document.getElementById('footJungle'); if(!host) return;
+      const backX=[]; for(let x=60;x<=1400;x+=rnd(110,160))backX.push(Math.round(x));
+      host.insertAdjacentHTML('beforeend', svgLayer(6,'xMidYMax slice',0.55, foliageRow(295, backX,'url(#fgBack)','rgba(4,28,18,.5)',[90,140],[34,52],[.7,1],'frond'), ).replace('viewBox="0 0 1440 900"','viewBox="0 0 1440 300"'));
+      const frontX=[40,120,1320,1400,520,860];
+      host.insertAdjacentHTML('beforeend', svgLayer(16,'xMidYMax slice',0.9, foliageRow(298, frontX,'url(#fgMid)','rgba(6,40,26,.5)',[130,190],[48,72],[.8,1.1],'frond')).replace('viewBox="0 0 1440 900"','viewBox="0 0 1440 300"'));
+      let vines=''; [180,1260,640].forEach(x=> vines+=wrapVine(x,0,rnd(.5,.8).toFixed(2), vineInner({len:rnd(90,150),leaves:Math.round(rnd(4,7)),bow:rnd(-30,30),fill:'url(#vleaf)',stem:'rgba(8,52,34,.8)'})) );
+      host.insertAdjacentHTML('beforeend', svgLayer(11,'xMidYMin slice',0.8, vines).replace('viewBox="0 0 1440 900"','viewBox="0 0 1440 160"'));
+      parallax(host, document.querySelector('footer'));
+    }
+
+    function parallax(host, area){
+      if(reduce || !area) return;
+      const layers=[...host.querySelectorAll('.layer')];
+      let raf=null, mx=0, my=0;
+      area.addEventListener('pointermove', e=>{
+        const r=host.getBoundingClientRect();
+        mx=((e.clientX-r.left)/r.width-.5); my=((e.clientY-r.top)/r.height-.5);
+        if(!raf) raf=requestAnimationFrame(apply);
+      });
+      area.addEventListener('pointerleave', ()=>{ mx=0;my=0; if(!raf) raf=requestAnimationFrame(apply); });
+      function apply(){ raf=null; layers.forEach(l=>{ const d=+l.dataset.depth||0; l.style.transform=`translate(${(-mx*d).toFixed(1)}px,${(-my*d*0.6).toFixed(1)}px)`; }); }
+    }
+
+    function initMotes(canvas, host){
+      const ctx=canvas.getContext('2d'); let w=0,h=0,parts=[],dpr=Math.min(devicePixelRatio||1,2);
+      function size(){ const r=host.getBoundingClientRect(); w=canvas.width=Math.max(1,r.width*dpr); h=canvas.height=Math.max(1,r.height*dpr); }
+      size();
+      const N=Math.max(24,Math.min(64,Math.round(w*h/55000)));
+      for(let i=0;i<N;i++) parts.push({x:Math.random()*w,y:Math.random()*h,r:(Math.random()*1.5+0.6)*dpr,vy:-(Math.random()*0.22+0.05)*dpr,vx:(Math.random()-.5)*0.12*dpr,ph:Math.random()*6.28,sp:Math.random()*0.02+0.006});
+      addEventListener('resize', size);
+      if(reduce) return;
+      (function frame(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of parts){
+          p.y+=p.vy; p.x+=p.vx+Math.sin(p.ph)*0.25; p.ph+=p.sp;
+          if(p.y<-12){ p.y=h+12; p.x=Math.random()*w; }
+          if(p.x<-12)p.x=w+12; if(p.x>w+12)p.x=-12;
+          const a=0.3+0.35*Math.sin(p.ph*2);
+          ctx.beginPath(); ctx.fillStyle='rgba(255,228,130,'+(a*0.22)+')'; ctx.arc(p.x,p.y,p.r*3.2,0,6.283); ctx.fill();
+          ctx.beginPath(); ctx.fillStyle='rgba(214,246,150,'+a+')'; ctx.arc(p.x,p.y,p.r,0,6.283); ctx.fill();
+        }
+        requestAnimationFrame(frame);
+      })();
+    }
+
+    buildHero();
+    buildFooter();
+  })();
   </script>
 </body>
 </html>
