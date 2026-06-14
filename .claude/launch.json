@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "mobilynx",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["-y", "serve", "-l", "5180", "."],
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--", "--port", "5180"],
       "port": 5180
     }
   ]

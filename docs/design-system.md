@@ -1,46 +1,45 @@
 # Design System
 
-Tropical, warm, "alive." Warm yellow → green, deep jungle backgrounds, cream text. Use the tokens below — **do not invent new hexes inline.**
+Clean tropical green. Deep jungle-green backgrounds, emerald→lime brand, warm yellow reserved for CTAs. All tokens live in `src/style.css`. **Use tokens — don't invent new hexes inline.**
 
-## Color tokens (CSS custom properties in `index.html`)
+## Color tokens (`:root` in `src/style.css`)
 
 | Token | Hex | Role |
 |-------|-----|------|
-| `--sun` | `#FFD23F` | Primary warm yellow (accents, CTAs, highlights) |
-| `--mango` | `#FFB22C` | Secondary warm orange-yellow (gradients, hovers) |
-| `--lime` | `#9BE564` | Bright fresh green (accents, success) |
-| `--emerald` | `#14B86A` | Core brand green (primary actions, links) |
-| `--jungle` | `#0A3D2C` | Deep jungle green (section backgrounds) |
-| `--jungle-2` | `#06241A` | Darker jungle green (gradients, depth) |
-| `--ink` | `#062018` | Near-black text on light surfaces |
-| `--txt` | `#E8F5EC` | Light text on dark/jungle surfaces |
-| `--cream` | `#FFFBEF` | Warm off-white surfaces / light sections |
+| `--primary` | `#14B86A` | Emerald — primary brand, buttons, links |
+| `--secondary` | `#9BE564` | Lime — gradient end, accents |
+| `--accent` | `#FFD23F` | Warm yellow — **CTA accents only** (`.btn-accent`, badge/live dots) |
+| `--bg` / `--bg-deep` | `#06241A` | Deepest background |
+| `--bg-secondary` / `--bg-mid` | `#0A3D2C` | Mid background |
+| `--glass` | `rgba(255,255,255,.08)` | Glass surfaces |
+| `--card-bg` | `rgba(255,255,255,.05)` | Card fill |
+| `--card-border` | `rgba(255,255,255,.09)` | Card border |
+| `--text` | `#E8F5EC` | Body text on dark |
+| `--text-muted` / `--text-faint` | — | Secondary / tertiary text |
+| `--gradient` | emerald→lime 135° | Brand gradient (text, buttons, bars) |
 
-Typical gradient: warm (`--sun` → `--mango`) for energy, green (`--lime` → `--emerald`) for brand.
+> **Legacy alias note:** the shared component kit (copied from `oxfeeds-landing`) references `--purple`, `--purple-light`, `--pink`, `--pink-light`, `--gradient-subtle`. These are **kept as names but remapped to green** so copied components work unchanged. Prefer the semantic names (`--primary`/`--secondary`/`--accent`) in new code.
 
 ## Typography
 
-- **Display / headings:** `Sora` (Google Fonts), weights 700–800.
-- **Body:** `Inter` (Google Fonts).
-- Headings use `clamp()` for fluid scaling.
+- **Display / headings:** `Sora` (700–800). Applied to all `h1–h6` + `.logo-name`, `.source-name`, `.price-code`, `.vstat-val` via `--font-display`.
+- **Body:** `Inter`.
+- Loaded in `index.html` from Google Fonts. Headings use `clamp()` for fluid scale.
 
-## Effects
+## Shared classes (global, in `style.css`)
 
-- **Glassmorphism:** translucent bg + `backdrop-filter: blur()` (nav, cards).
-- **God rays:** `mix-blend-mode: screen` on the ray layer for light blending.
-- Rounded corners, soft shadows, generous spacing.
+`.container` · `.section` / `.section-header` / `.section-tag` / `.section-title` / `.section-sub` · `.glass-card` (hover lift) · `.btn-primary` (green gradient) · `.btn-accent` (yellow CTA) · `.btn-secondary` · `.gradient-text` · `.gradient-border` (animated conic) · `.reveal` / `.reveal-left` / `.reveal-right` + `.delay-1..6` · legal prose (`.legal-content …`).
 
-## Animation principles
+## Motion
 
-- **Everything organic, nothing mechanical.** Foliage gets randomized duration/delay/amplitude via CSS vars (`--dur`, `--delay`, `--amp`).
-- Easing: `cubic-bezier(.2,.8,.3,1)` for parallax transitions; `ease-in-out` for breathing loops.
-- **Always honor `prefers-reduced-motion`** — suppress sway/drift/motes when set.
-- Keep it tasteful in secondary areas (footer jungle is "accurate, without overdoing it" — user's words).
+- Reveal-on-scroll (`useScrollReveal`), count-up stats (`useCountUp`), cursor tilt on cards (`useTilt`), floating orbs/particles in hero, animated scroll-progress bar.
+- Easing: `cubic-bezier(0.16,1,0.3,1)` for transitions.
+- **Honor `prefers-reduced-motion`** — `useTilt` and hero parallax/particles no-op; marquee + gradient-border animations disabled.
 
 ## Do / don't
 
-- ✅ Reference tokens (`var(--emerald)`), reuse existing keyframes.
-- ✅ Keep contrast high enough over foliage (use the hero `::after` overlay pattern).
-- ❌ Don't add static, lifeless leaf icons — motion is the product.
-- ❌ Don't introduce a CSS framework or build step.
-- ❌ Don't hardcode brand colors as raw hex in new markup.
+- ✅ Reference tokens (`var(--primary)`), reuse shared classes + composables.
+- ✅ Keep yellow for CTAs only; green is the dominant brand.
+- ❌ No jungle / procedural foliage (removed — see `decisions.md`).
+- ❌ No CSS framework / build-tool sprawl beyond Vite.
+- ❌ Don't hardcode brand hexes in new markup.

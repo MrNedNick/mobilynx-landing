@@ -4,6 +4,17 @@ Why things are the way they are. Newest at top. Keep entries short: **decision �
 
 ---
 
+### 2026-06-14 · Rebuilt as Vue 3 + Vite SPA, mirroring oxfeeds-landing
+- **Decision:** Replaced the single-file HTML page with a Vue 3 + Vue Router + Vite 5 multi-page app, copying the architecture of the sibling project `oxfeeds-landing` (composables `useScrollReveal`/`useTilt`/`useCountUp`, router pattern, `App.vue` shell, GitHub Pages deploy workflow, glassmorphism component kit). Added legal pages (`/privacy`, `/terms`, `/cookies`, `/gdpr`) + 404 + GDPR banner.
+- **Reason:** User wanted the two landing projects to share one maintainable architecture and a real deploy pipeline (GitHub Pages).
+- **Notes:**
+  - **Jungle removed.** The previous design's procedural foliage was dropped per brief ("чистый зелёный, без джунглей"). Background is now deep green (`#06241A`/`#0A3D2C`) + glassmorphism + floating orbs.
+  - **Token strategy:** kept oxfeeds' CSS variable *names* (`--purple`, `--pink`, `--gradient`, …) so copied components work unchanged, but remapped their *values* to green/lime. Added semantic aliases `--primary`/`--secondary`/`--accent` and brief colors. Hardcoded purple/pink hexes inside copied components were find-replaced to green/lime.
+  - **Accent yellow `#FFD23F`** is reserved for the strongest CTA (hero "Start Scaling" = `.btn-accent`); brand green stays dominant.
+  - **Fonts:** added Sora (display/headings) alongside Inter (body) — oxfeeds uses Inter only.
+  - **Footer year hardcoded `© 2026`** (not dynamic) per the fixed requirement.
+  - **Preview gotcha:** the preview tool reads `.claude/launch.json` from the **project root** (`AIProjects/.claude/launch.json`), not the per-project one. A leftover `npx serve` on :5180 shadowed Vite (served raw `.vue`, blank page). Fixed the root config to `npm run dev` and killed the stale serve. See `dev-server` skill.
+
 ### 2026-06-14 · Internal docs + skills modeled on VibeOS
 - **Decision:** Add `CLAUDE.md` + `docs/` + `.claude/skills/` instead of UI docs.
 - **Reason:** User wants every future chat to pick up context, roadmap, and tasks without re-explaining. Mirrors the VibeOS project's structure (sprint roadmap + CLAUDE.md entry point), lighter detail.

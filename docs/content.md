@@ -41,6 +41,15 @@ Single source of truth for the site's wording and numbers. If copy changes here,
 - Pricing: **"Performance-based pricing models"** — CPA · CPI · CPL · CPS
 - Contact: **"Ready to scale your traffic?"**
 
+## Pages / routes
+
+`/` home · `/privacy` · `/terms` · `/cookies` · `/gdpr` · `/*` 404.
+Legal pages use `LegalLayout.vue` with slot prose; all contact links point to `sales@mobilynx.io`.
+
+## Deploy
+
+Repo: https://github.com/MrNedNick/mobilynx-landing · published to https://mrnednick.github.io/mobilynx-landing/ via GitHub Actions.
+
 ## Rules
 
 - Keep all original content from mobilynx.io unless the user asks to change it.

@@ -1,77 +1,63 @@
 # Architecture
 
-How the site is built. It is intentionally simple: **one file, no build.**
+Vue 3 + Vite 5 SPA. Architecture deliberately mirrors the sibling project `oxfeeds-landing` (../oxfeeds-landing) — same composables, router pattern, component kit and deploy workflow.
 
 ## File layout
 
 ```
 mobilynx-landing/
-├─ index.html          ← the entire site (HTML + <style> + <script>), ~700 lines
-├─ CLAUDE.md           ← session entry point
-├─ docs/               ← this folder
-└─ .claude/skills/     ← reusable playbooks
+├─ index.html                  ← Vite entry; loads Sora + Inter fonts, mounts #app
+├─ vite.config.js              ← base: '/mobilynx-landing/' (build) vs '/' (dev)
+├─ vercel.json, public/_redirects ← SPA fallback for non-GH hosts
+├─ .github/workflows/deploy.yml ← build + deploy to GitHub Pages (copies index.html→404.html)
+├─ public/favicon.svg          ← green "M" mark
+└─ src/
+   ├─ main.js                  ← createApp + router + style.css
+   ├─ App.vue                  ← ScrollProgress + NavBar + <router-view> + Footer + GdprBanner
+   ├─ style.css                ← global theme tokens + shared classes (see design-system.md)
+   ├─ router/index.js          ← routes + scrollBehavior + document.title
+   ├─ composables/
+   │  ├─ useScrollReveal.js    ← IntersectionObserver → .visible on .reveal*
+   │  ├─ useTilt.js            ← cursor 3D tilt (respects reduced-motion)
+   │  └─ useCountUp.js         ← animate numbers to data-count + data-suffix
+   ├─ components/
+   │  ├─ NavBar.vue, FooterSection.vue, ScrollProgress.vue, GdprBanner.vue, LegalLayout.vue
+   │  ├─ HeroSection.vue       ← parallax orbs + particles + count-up stats
+   │  ├─ MarqueeStrip.vue      ← POP·PUSH·IN-APP·CPA·CPI·CPL·CPS·20M+…
+   │  ├─ SolutionsSection.vue  ← 3 verticals bento (tilt)
+   │  ├─ TrafficSources.vue    ← POP / PUSH / IN-APP cards (tilt)
+   │  ├─ TargetingSection.vue  ← "why us" split section + live stat bars
+   │  ├─ PricingModels.vue     ← CPA / CPI / CPL / CPS (tilt)
+   │  └─ ContactUs.vue         ← front-end-only form → sales@mobilynx.io
+   └─ views/
+      ├─ HomeView.vue          ← assembles the home sections, calls useScrollReveal()
+      ├─ PrivacyPage / TermsPage / CookiePage / GdprPage.vue ← <LegalLayout> + slot prose
+      └─ NotFound.vue          ← 404
 ```
 
-`index.html` is structured top-to-bottom as:
-1. `<head>` — meta, Google Fonts (Sora + Inter), one big inline `<style>`.
-2. `<body>` — semantic sections (see below).
-3. One inline `<script>` IIFE at the end — counters, scroll reveal, and the jungle engine.
+## Routing
 
-## Page sections (in order)
+`src/router/index.js` — `createWebHistory(import.meta.env.BASE_URL)`. Routes: `/`, `/privacy`, `/terms`, `/cookies`, `/gdpr`, catch-all 404. `scrollBehavior` handles hash anchors (offset 80px) and top-on-navigate. `router.afterEach` sets `document.title` to `"<meta.title> — Mobilynx"`.
 
-| Section | Anchor / id | Purpose |
-|---------|-------------|---------|
-| Nav | `#top` | Sticky glassmorphism bar |
-| Hero | `#heroJungle` (animation host) | Headline + CTA + **living jungle** + stat counters |
-| Solutions | `#solutions` | 3-vertical bento grid (app promo / VPN / e-commerce) |
-| Traffic sources | `#sources` | POP / PUSH / IN-APP cards |
-| Marquee | — | Scrolling ticker |
-| Targeting | `#targeting` | Split "pinpoint targeting" section |
-| Pricing | `#models` | CPA / CPI / CPL / CPS models |
-| Contact | `#contact`, form `#contactForm` | Front-end-only form → `sales@mobilynx.io` |
-| Footer | `#footJungle` (animation host) | Jungle elements + © 2026 line |
+In-page section nav (NavBar/Footer): `goSection(id)` scrolls to `#id` on home, or routes home with a hash first if elsewhere.
 
-## JS behaviours (inline `<script>`)
+## Composables (shared patterns, copied verbatim from oxfeeds)
 
-- **Stat counters** — `IntersectionObserver` animates numbers up to `data-count` + `data-suffix`. Values: 20M+, 20+, 99%, 24/7.
-  > Headless preview screenshots may catch a mid-count frame (e.g. "1M+"). That is **not a bug** — verify final values via DOM, not screenshot.
-- **Scroll reveal** — `.reveal` elements fade/slide in via `IntersectionObserver`.
-- **Living jungle engine** — see below.
+- **useScrollReveal()** — call once per view; observes `.reveal`/`.reveal-left`/`.reveal-right`, adds `.visible`.
+- **useTilt(selector)** — subtle cursor 3D tilt on cards; no-ops under `prefers-reduced-motion`.
+- **useCountUp(selector)** — counts elements up to `data-count` (+`data-suffix`, `data-duration`) on scroll-in. Hero stats use `.count-up`.
 
-## The living jungle engine
+## Styling
 
-Procedurally generates SVG foliage so no two leaves move identically — a real "breathing forest," not static icons (the static version was explicitly rejected by the user).
+Single global `src/style.css` holds CSS custom-property tokens + shared utility classes (`.glass-card`, `.btn-primary`, `.btn-accent`, `.btn-secondary`, `.section-*`, `.reveal*`, legal prose). Components use scoped `<style>`. See `design-system.md`.
 
-### Builders (pure SVG-path generators)
-- `leaf(L,w)` — teardrop leaf path.
-- `frondInner(...)` — pinnate palm/fern frond (bezier stem + leaflets).
-- `bananaInner(...)` — broad banana leaf with veins.
-- `vineInner(...)` — hanging vine that grows downward.
+## Build & deploy
 
-### Wrappers / composition
-- `foliageRow(...)` — a row of fronds or banana leaves at a baseline.
-- `rayLayer()` — 4 god-ray beams (`mix-blend-mode: screen`).
-- `buildHero()` — assembles **7 depth layers**: defs · rays · back foliage · hanging vines · mid foliage · front foliage · drifting leaves · canvas motes.
-- `buildFooter()` — assembles **3 layers**: back foliage · front foliage · small vines.
-
-### Motion
-- CSS keyframes drive the life: `swayF` (fronds), `swayV` (vines), `drift` (falling leaves), `rayBreathe` (god rays). Each element gets randomized `--dur`, `--delay`, `--amp` so motion is organic.
-- `parallax(host, area)` — `mousemove` shifts layers by `data-depth` (multi-layer depth).
-- `initMotes(canvas, host)` — Canvas 2D particle system, ~24–64 ascending motes/spores.
-- **Accessibility:** `prefers-reduced-motion` is checked (2 places) — animations are suppressed when the user opts out.
-
-### Legibility
-- Hero `::after` bottom gradient overlay keeps text readable over foliage.
-- `.hero .wrap` sits at `z-index:3`, above all jungle layers.
-
-## CSS conventions
-
-- All colors come from CSS custom properties (see `design-system.md`). Don't hardcode new hexes.
-- Glassmorphism via `backdrop-filter` + translucent backgrounds.
-- Fluid sizing via `clamp()` for headings.
+- `npm run build` → `dist/`. CI copies `dist/index.html` → `dist/404.html` so deep links work on GitHub Pages.
+- `base` must stay `/mobilynx-landing/` for the Pages project URL.
 
 ## Known gaps
 
-- Contact form has **no backend** — it shows success but sends nothing (P4 in roadmap).
-- No `<meta>` description / OG tags / favicon yet (P5).
-- Two launch configs exist: the `mobilynx` entry in the **project-root** `.claude/launch.json` and a local one in this folder — both now use `npx serve` on port 5180. Always serve with `npx serve` (never `python3 http.server`, blocked in sandbox).
+- **Contact form has no backend** — shows success, sends nothing (roadmap P4).
+- No OG/Twitter meta image yet (only `<meta description>`).
+- Legal copy is solid boilerplate adapted for an ad-tech traffic company — have it reviewed before relying on it legally.
