@@ -101,11 +101,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useLeadSelection } from '../composables/useLeadSelection'
 
 const form = ref({ name: '', email: '', vertical: '', message: '' })
 const sending = ref(false)
 const sent = ref(false)
+
+const lead = useLeadSelection()
+
+watch(() => lead.model, (model) => {
+  if (!model) return
+  form.value.vertical = lead.vertical || form.value.vertical
+  form.value.message = `Recommended pricing model: ${model}. ${lead.note}`
+})
 
 const info = [
   {

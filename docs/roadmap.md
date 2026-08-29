@@ -50,3 +50,4 @@
 - **2026-06-13** — P1 single-file redesign + P2 living jungle shipped (commits `bc1bacd`, `04e653a`).
 - **2026-06-14** — Repo created + pushed; internal docs & skills added (VibeOS-style).
 - **2026-06-14** — **P3: full Vue 3 + Vite rebuild** mirroring `oxfeeds-landing`. Green theme (no jungle), 7 home sections, 4 legal pages + 404 + GDPR banner, composables reused, GitHub Pages workflow. Build clean, verified on :5180.
+- **2026-08-29** — Interactive pricing picker in `PricingModels.vue`: pick a vertical + goal, get a recommended model (CPA/CPI/CPL/CPS) with an explanation and the matching card highlighted, then a CTA hands the pick to `ContactUs.vue` (shared `useLeadSelection` composable) which pre-fills the vertical select and message. Keyboard-operable (native buttons, `aria-pressed`), no horizontal overflow at 360px. Build clean.
