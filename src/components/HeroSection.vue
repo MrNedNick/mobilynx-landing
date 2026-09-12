@@ -45,17 +45,17 @@
 
       <div class="hero-stats reveal delay-4">
         <div class="stat">
-          <div class="stat-num gradient-text count-up" data-count="20" data-suffix="M+">0</div>
+          <div class="stat-num gradient-text count-up" data-count="20" data-suffix="M+">20M+</div>
           <div class="stat-label">Daily Impressions</div>
         </div>
         <div class="stat-sep"></div>
         <div class="stat">
-          <div class="stat-num gradient-text count-up" data-count="20" data-suffix="+">0</div>
+          <div class="stat-num gradient-text count-up" data-count="20" data-suffix="+">20+</div>
           <div class="stat-label">GEOs Covered</div>
         </div>
         <div class="stat-sep"></div>
         <div class="stat">
-          <div class="stat-num gradient-text count-up" data-count="99" data-suffix="%">0</div>
+          <div class="stat-num gradient-text count-up" data-count="99" data-suffix="%">99%</div>
           <div class="stat-label">Fill Rate</div>
         </div>
         <div class="stat-sep"></div>
