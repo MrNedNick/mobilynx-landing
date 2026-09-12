@@ -74,7 +74,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useTilt } from '../composables/useTilt'
+import { useTilt } from '../lib/vue/use-tilt'
 import { useLeadSelection } from '../composables/useLeadSelection'
 
 useTilt('.price-card')
