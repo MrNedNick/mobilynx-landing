@@ -1,6 +1,6 @@
 # Architecture
 
-Vue 3 + Vite 5 SPA. Architecture deliberately mirrors the sibling project `oxfeeds-landing` (../oxfeeds-landing) — same composables, router pattern, component kit and deploy workflow.
+Vue 3 + Vite 5 SPA. Architecture deliberately mirrors the sibling project `oxfeeds-landing` (../oxfeeds-landing) — same animation hooks (both now pulled from `ui-registry`), router pattern, component kit and deploy workflow.
 
 ## File layout
 
@@ -16,10 +16,10 @@ mobilynx-landing/
    ├─ App.vue                  ← ScrollProgress + NavBar + <router-view> + Footer + GdprBanner
    ├─ style.css                ← global theme tokens + shared classes (see design-system.md)
    ├─ router/index.js          ← routes + scrollBehavior + document.title
-   ├─ composables/
-   │  ├─ useScrollReveal.js    ← IntersectionObserver → .visible on .reveal*
-   │  ├─ useTilt.js            ← cursor 3D tilt (respects reduced-motion)
-   │  └─ useCountUp.js         ← animate numbers to data-count + data-suffix
+   ├─ lib/                     ← animation hooks copied in from ui-registry
+   │  ├─ vue/use-scroll-reveal.ts ← IntersectionObserver → .visible on .reveal*
+   │  ├─ vue/use-tilt.ts       ← cursor 3D tilt (respects reduced-motion)
+   │  └─ vue/use-count-up.ts   ← animate numbers to data-count + data-suffix
    ├─ components/
    │  ├─ NavBar.vue, FooterSection.vue, ScrollProgress.vue, GdprBanner.vue, LegalLayout.vue
    │  ├─ HeroSection.vue       ← parallax orbs + particles + count-up stats
