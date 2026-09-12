@@ -32,6 +32,6 @@ https://mrnednick.github.io/mobilynx-landing/
 - `src/composables/` — `useScrollReveal`, `useTilt`, `useCountUp`
 - `src/style.css` — theme tokens + shared classes
 
-See `CLAUDE.md` and `docs/` for full context, roadmap, and decisions.
+See `docs/` for full context, roadmap, and decisions.
 
 Contact: sales@mobilynx.io · © 2026 Mobilynx. All rights reserved.
