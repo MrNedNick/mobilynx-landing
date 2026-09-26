@@ -7,7 +7,7 @@
     <div class="container nf-inner">
       <div class="nf-code gradient-text">404</div>
       <h1>Page Not Found</h1>
-      <p>The page you're looking for doesn't exist or has been moved. Let's get you back to scaling your traffic.</p>
+      <p>The page you're looking for doesn't exist or has been moved.</p>
       <div class="nf-actions">
         <router-link to="/" class="btn-primary">
           Back to Home
@@ -15,7 +15,7 @@
             <path d="M3 8h10M9 4l4 4-4 4" stroke="#04190F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </router-link>
-        <a href="mailto:sales@mobilynx.io" class="btn-secondary">Contact Support</a>
+        <a href="mailto:sales@mobilynx.io" class="btn-secondary">sales@mobilynx.io</a>
       </div>
     </div>
   </main>

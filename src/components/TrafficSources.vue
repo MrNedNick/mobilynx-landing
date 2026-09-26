@@ -6,12 +6,7 @@
     </div>
     <div class="container">
       <div class="section-header">
-        <div class="section-tag reveal">
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="currentColor" opacity=".4"/><circle cx="6" cy="6" r="2.5" fill="currentColor"/></svg>
-          Traffic Channels
-        </div>
-        <h2 class="section-title reveal delay-1">Three powerful <span class="gradient-text">traffic channels</span></h2>
-        <p class="section-sub reveal delay-2">Reach your audience wherever they are, with formats engineered for performance and scale.</p>
+        <h2 class="section-title reveal">Our traffic <span class="gradient-text">sources</span></h2>
       </div>
 
       <div class="sources-grid">
@@ -19,14 +14,10 @@
           class="source-card glass-card reveal"
           :class="`delay-${i + 1}`">
           <div class="source-head">
-            <div class="source-icon"><span v-html="s.icon"></span></div>
-            <span class="source-name">{{ s.name }}</span>
+            <div class="source-icon"><img :src="s.icon" alt="" width="28" height="28"></div>
+            <h3 class="source-name">{{ s.name }}</h3>
           </div>
-          <h3>{{ s.title }}</h3>
           <p>{{ s.desc }}</p>
-          <div class="source-meta">
-            <span v-for="m in s.meta" :key="m" class="meta-chip">{{ m }}</span>
-          </div>
         </div>
       </div>
     </div>
@@ -35,30 +26,27 @@
 
 <script setup>
 import { useTilt } from '../lib/vue/use-tilt'
+import pop from '../assets/site/source-pop.svg'
+import push from '../assets/site/source-push.svg'
+import inApp from '../assets/site/source-in-app.svg'
 
 useTilt('.source-card')
 
 const sources = [
   {
     name: 'POP',
-    title: 'Popunder Traffic',
-    desc: 'High-volume popunder placements that capture attention and deliver massive reach at competitive rates.',
-    meta: ['High volume', 'All GEOs', 'Instant scale'],
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M7 21h10M9 17v4M15 17v4"/></svg>`
+    desc: 'Popunder ads provide massive reach at the lowest cost along with access to our exclusive inventory of publishers.',
+    icon: pop
   },
   {
     name: 'PUSH',
-    title: 'Push Notifications',
-    desc: 'Engaging push notification ads delivered to opted-in users for high click-through and re-engagement.',
-    meta: ['Opt-in base', 'High CTR', 'Real-time'],
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>`
+    desc: 'Explore a unique advertising channel. Instantly deliver your brand’s message or offer directly to a user’s device, even when he is not browsing.',
+    icon: push
   },
   {
     name: 'IN-APP',
-    title: 'In-App Inventory',
-    desc: 'Native in-app placements across premium mobile applications for contextual, high-intent reach.',
-    meta: ['Premium apps', 'Native fit', 'Brand-safe'],
-    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M9 6h6M9 10h6M9 14h3"/></svg>`
+    desc: 'In-app advertising is an effective strategy for app developers get new members to their mobile app.',
+    icon: inApp
   }
 ]
 </script>
@@ -121,34 +109,14 @@ const sources = [
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  margin: 0;
 }
 
-.source-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
 .source-card p {
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.65;
   margin-bottom: 22px;
-}
-
-.source-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: auto;
-}
-.meta-chip {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--card-border);
-  border-radius: 50px;
-  padding: 4px 12px;
 }
 
 @media (max-width: 900px) {

@@ -11,16 +11,15 @@
       </router-link>
 
       <nav class="nav-links" :class="{ open: menuOpen }">
-        <a href="#" @click.prevent="goSection('solutions')">Solutions</a>
-        <a href="#" @click.prevent="goSection('sources')">Traffic</a>
-        <a href="#" @click.prevent="goSection('targeting')">Why Us</a>
-        <a href="#" @click.prevent="goSection('pricing')">Pricing</a>
-        <a href="#" @click.prevent="goSection('contact')">Contact</a>
+        <a href="#traffic" @click.prevent="goSection('traffic')">Traffic</a>
+        <a href="#sources" @click.prevent="goSection('sources')">Sources</a>
+        <a href="#geos" @click.prevent="goSection('geos')">Geos</a>
+        <a href="#contact" @click.prevent="goSection('contact')">Contact</a>
       </nav>
 
       <div class="nav-right">
-        <a href="#" class="btn-primary nav-cta" @click.prevent="goSection('contact')">Get Started</a>
-        <button class="hamburger" @click="menuOpen = !menuOpen" :class="{ active: menuOpen }">
+        <a href="#contact" class="btn-primary nav-cta" @click.prevent="goSection('contact')">Write to us</a>
+        <button class="hamburger" @click="menuOpen = !menuOpen" :class="{ active: menuOpen }" :aria-expanded="menuOpen" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
       </div>

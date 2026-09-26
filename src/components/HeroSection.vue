@@ -15,72 +15,31 @@
     <div class="container hero-content">
       <div class="hero-badge gradient-border reveal">
         <span class="badge-dot"></span>
-        Performance Traffic Network · 20+ GEOs
+        Advertising agency
       </div>
 
       <h1 class="hero-title reveal delay-1">
-        Scale Your Traffic.<br>
-        Maximize <span class="gradient-text anim-gradient">Every Conversion</span>
+        <span class="gradient-text anim-gradient">\Mobilynx</span>
       </h1>
 
       <p class="hero-sub reveal delay-2">
-        Mobilynx delivers performance-driven POP, PUSH &amp; IN-APP traffic for mobile app promotion,
-        VPN &amp; privacy apps, and e-commerce — with precise targeting and real-time optimization.
+        Mobilynx drives the most useful mobile apps and services to everyone. We help our clients
+        reach high volumes of quality customers through mobile + desktop traffic.
       </p>
 
       <div class="hero-ctas reveal delay-3">
         <a href="#contact" class="btn-accent">
-          Start Scaling
+          Write to us
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M3 8h10M9 4l4 4-4 4" stroke="#2A1A00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-        <a href="#solutions" class="btn-secondary">
-          Explore Solutions
+        <a href="#traffic" class="btn-secondary">
+          We sell traffic
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </a>
-      </div>
-
-      <div class="hero-stats reveal delay-4">
-        <div class="stat">
-          <div class="stat-num gradient-text count-up" data-count="20" data-suffix="M+">20M+</div>
-          <div class="stat-label">Daily Impressions</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat">
-          <div class="stat-num gradient-text count-up" data-count="20" data-suffix="+">20+</div>
-          <div class="stat-label">GEOs Covered</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat">
-          <div class="stat-num gradient-text count-up" data-count="99" data-suffix="%">99%</div>
-          <div class="stat-label">Fill Rate</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div class="stat">
-          <div class="stat-num gradient-text">24/7</div>
-          <div class="stat-label">Optimization</div>
-        </div>
-      </div>
-
-      <div class="trusted reveal delay-5">
-        <span class="trusted-label">Built for</span>
-        <div class="trusted-logos">
-          <div class="vertical-badge">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-            Mobile Apps
-          </div>
-          <div class="vertical-badge">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            VPN &amp; Privacy
-          </div>
-          <div class="vertical-badge">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
-            E-Commerce
-          </div>
-        </div>
       </div>
     </div>
 
@@ -92,9 +51,6 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import { useCountUp } from '../lib/vue/use-count-up'
-
-useCountUp('.count-up')
 
 const heroEl = ref(null)
 const parallaxEl = ref(null)
@@ -289,67 +245,6 @@ onUnmounted(() => {
   justify-content: center;
 }
 
-.hero-stats {
-  display: flex;
-  align-items: center;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 20px;
-  padding: 24px 40px;
-  backdrop-filter: blur(20px);
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px 40px;
-}
-
-.stat { text-align: center; }
-.stat-num {
-  font-size: 1.75rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-.stat-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 4px;
-  white-space: nowrap;
-}
-
-.stat-sep {
-  width: 1px;
-  height: 40px;
-  background: var(--card-border);
-}
-
-.trusted {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.trusted-label {
-  font-size: 0.85rem;
-  color: var(--text-faint);
-}
-.trusted-logos { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
-.vertical-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 10px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  transition: border-color 0.2s, color 0.2s;
-}
-.vertical-badge:hover { border-color: rgba(20,184,106,0.4); color: var(--text); }
-.vertical-badge svg { color: var(--purple-light); }
-
 .scroll-hint {
   position: absolute;
   bottom: 32px;
@@ -385,8 +280,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
-  .hero-stats { padding: 20px 24px; }
-  .stat-sep { display: none; }
   .hero-title { font-size: 2.25rem; }
 }
 </style>
