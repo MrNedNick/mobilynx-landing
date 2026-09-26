@@ -1,37 +1,22 @@
 # Mobilynx Landing
 
-Modern marketing site for **Mobilynx** — performance traffic for mobile app promotion, VPN & privacy apps, and e-commerce. POP · PUSH · IN-APP across 20+ GEOs.
+The website of **Mobilynx**, an advertising agency selling mobile + desktop traffic — POP, PUSH and in-app — for installs, registrations, sign-ups and deposits.
 
-Built with **Vue 3 + Vue Router + Vite**. Architecture mirrors the sibling `oxfeeds-landing` project.
+**[Open the site](https://mrnednick.github.io/mobilynx-landing/)**
+
+Built with Vue 3, Vue Router and Vite. The copy, icons and privacy policy are those of the live site, [mobilynx.io](https://mobilynx.io/); a content test keeps it that way.
 
 ## Develop
 
 ```bash
 npm install
 npm run dev -- --port 5180
-```
-
-Open http://localhost:5180 .
-
-## Build
-
-```bash
-npm run build     # → dist/  (base path /mobilynx-landing/)
-npm run preview
+npm test          # content and contact-form tests (Vitest)
+npm run build     # → dist/, base path /mobilynx-landing/
 ```
 
 ## Deploy
 
-Push to `main` → GitHub Actions builds and publishes to GitHub Pages:
-https://mrnednick.github.io/mobilynx-landing/
+A push to `main` runs the tests, builds and publishes to GitHub Pages.
 
-## Structure
-
-- `src/views/` — pages (home + `/privacy`, `/terms`, `/cookies`, `/gdpr`, 404)
-- `src/components/` — nav, footer, home sections, legal layout, GDPR banner
-- `src/composables/` — `useScrollReveal`, `useTilt`, `useCountUp`
-- `src/style.css` — theme tokens + shared classes
-
-See `docs/` for full context, roadmap, and decisions.
-
-Contact: sales@mobilynx.io · © 2026 Mobilynx. All rights reserved.
+More in [`docs/`](docs/): content, architecture, design system and decisions.

@@ -25,6 +25,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm test
       - run: npm run build
       # SPA fallback: GitHub Pages serves 404.html for unknown paths,
       # which boots the app so deep links like /privacy work on refresh.

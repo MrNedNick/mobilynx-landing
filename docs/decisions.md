@@ -51,3 +51,9 @@ Why things are the way they are. Newest at top. Keep entries short: **decision �
 ### 2026-06-13 · Email + footer
 - **Decision:** `sales@mobilynx.io` everywhere; footer `© 2026 Mobilynx. All rights reserved.`
 - **Reason:** Direct user requirements.
+
+### 2026-09-26 · Content comes from the live site only
+- **Decision:** Every section now carries the copy of https://mobilynx.io/ word for word: hero, "We sell traffic", traffic sources, top geos, "Traffic you can trust" with its four features, the contact block and the privacy policy. Removed what the live site does not have: the stats row (20M+, 20+ GEOs, 99%, 24/7), the VPN and e-commerce verticals, the marquee, the pricing section and its picker, the "why us" figures, the "what to expect" promises, the terms/cookies/GDPR pages and the cookie banner. The icons and flag strip are the live site's files.
+- **Kept from earlier decisions:** the form and 404 use `sales@mobilynx.io`, the footer reads `© 2026 Mobilynx. All rights reserved.`; the live site's `hanna@mobilynx.io` stays in its app-owner sentence.
+- **Reason:** Owner's instruction — the landing must present the real business, with nothing invented.
+- **Supersedes:** "Stats cut to realistic numbers" (2026-06-13) — there are no stats on the live site.

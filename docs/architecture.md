@@ -13,31 +13,31 @@ mobilynx-landing/
 ├─ public/favicon.svg          ← green "M" mark
 └─ src/
    ├─ main.js                  ← createApp + router + style.css
-   ├─ App.vue                  ← ScrollProgress + NavBar + <router-view> + Footer + GdprBanner
+   ├─ App.vue                  ← ScrollProgress + NavBar + <router-view> + Footer
    ├─ style.css                ← global theme tokens + shared classes (see design-system.md)
    ├─ router/index.js          ← routes + scrollBehavior + document.title
    ├─ lib/                     ← animation hooks copied in from ui-registry
    │  ├─ vue/use-scroll-reveal.ts ← IntersectionObserver → .visible on .reveal*
    │  ├─ vue/use-tilt.ts       ← cursor 3D tilt (respects reduced-motion)
-   │  └─ vue/use-count-up.ts   ← animate numbers to data-count + data-suffix
+   │  └─ contact.js            ← mailto: link for the contact form
    ├─ components/
-   │  ├─ NavBar.vue, FooterSection.vue, ScrollProgress.vue, GdprBanner.vue, LegalLayout.vue
-   │  ├─ HeroSection.vue       ← parallax orbs + particles + count-up stats
-   │  ├─ MarqueeStrip.vue      ← POP·PUSH·IN-APP·CPA·CPI·CPL·CPS·20M+…
-   │  ├─ SolutionsSection.vue  ← 3 verticals bento (tilt)
+   │  ├─ NavBar.vue, FooterSection.vue, ScrollProgress.vue, LegalLayout.vue
+   │  ├─ HeroSection.vue       ← parallax orbs + particles
+   │  ├─ SolutionsSection.vue  ← "We sell traffic" (tilt)
    │  ├─ TrafficSources.vue    ← POP / PUSH / IN-APP cards (tilt)
-   │  ├─ TargetingSection.vue  ← "why us" split section + live stat bars
-   │  ├─ PricingModels.vue     ← CPA / CPI / CPL / CPS (tilt)
-   │  └─ ContactUs.vue         ← front-end-only form → sales@mobilynx.io
+   │  ├─ TargetingSection.vue  ← "Traffic you can trust" + features + top geos
+   │  └─ ContactUs.vue         ← form → mailto: sales@mobilynx.io
+   ├─ content/privacy.js       ← the live privacy policy, word for word
+   ├─ assets/site/             ← the live site's icons and flag strip
    └─ views/
       ├─ HomeView.vue          ← assembles the home sections, calls useScrollReveal()
-      ├─ PrivacyPage / TermsPage / CookiePage / GdprPage.vue ← <LegalLayout> + slot prose
+      ├─ PrivacyPage.vue       ← <LegalLayout> rendering content/privacy.js
       └─ NotFound.vue          ← 404
 ```
 
 ## Routing
 
-`src/router/index.js` — `createWebHistory(import.meta.env.BASE_URL)`. Routes: `/`, `/privacy`, `/terms`, `/cookies`, `/gdpr`, catch-all 404. `scrollBehavior` handles hash anchors (offset 80px) and top-on-navigate. `router.afterEach` sets `document.title` to `"<meta.title> — Mobilynx"`.
+`src/router/index.js` — `createWebHistory(import.meta.env.BASE_URL)`. Routes: `/`, `/privacy`, catch-all 404. `scrollBehavior` handles hash anchors (offset 80px) and top-on-navigate. `router.afterEach` sets `document.title` to `"<meta.title> — Mobilynx"`.
 
 In-page section nav (NavBar/Footer): `goSection(id)` scrolls to `#id` on home, or routes home with a hash first if elsewhere.
 
@@ -45,7 +45,6 @@ In-page section nav (NavBar/Footer): `goSection(id)` scrolls to `#id` on home, o
 
 - **useScrollReveal()** — call once per view; observes `.reveal`/`.reveal-left`/`.reveal-right`, adds `.visible`.
 - **useTilt(selector)** — subtle cursor 3D tilt on cards; no-ops under `prefers-reduced-motion`.
-- **useCountUp(selector)** — counts elements up to `data-count` (+`data-suffix`, `data-duration`) on scroll-in. Hero stats use `.count-up`.
 
 ## Styling
 

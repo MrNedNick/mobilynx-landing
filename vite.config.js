@@ -7,4 +7,5 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig(({ command }) => ({
   base: command === 'build' ? '/mobilynx-landing/' : '/',
   plugins: [vue()],
+  test: { environment: 'jsdom' },
 }))

@@ -1,56 +1,28 @@
 # Content (canonical copy)
 
-Single source of truth for the site's wording and numbers. If copy changes here, change `index.html` to match (and vice-versa).
+The landing carries the content of the live site, https://mobilynx.io/, and nothing else: no figures,
+verticals, offers or pages that the live site does not have. `src/__tests__/content.test.js` checks this.
 
-## Source
+## Home, top to bottom
 
-- **Original site (content scraped from here):** https://mobilynx.io/
-- All copy was taken from this URL at session start (2026-06-13) via WebFetch and preserved verbatim. If content diverges, this is the canonical source to re-check.
+| Section | Copy |
+|---|---|
+| Hero | Advertising agency · \Mobilynx · "Mobilynx drives the most useful mobile apps and services to everyone. We help our clients reach high volumes of quality customers through mobile + desktop traffic." |
+| We sell traffic | Installs, registrations, free trials — for apps and browser extensions · SOI/DOI — for games · Deposits — for online products |
+| Our traffic sources | POP, PUSH, IN-APP with the live descriptions |
+| Top traffic geos | United States, United Kingdom, Canada, Australia, Japan, India, Qatar, Saudi Arabia, United Arab Emirates, France, Germany (the live flag strip) |
+| Traffic you can trust | the live paragraph, then Advanced targeting, Optimization, Support & feedback, Pricing models (CPA, CPI, CPL and CPS) |
+| Any questions? | "We are ready to answer!", form with Name, Email, Message and "Write to us"; "If you are an app owner and looking for traffic, please contact us at hanna@mobilynx.io" |
+| Footer | © 2026 Mobilynx. All rights reserved. · Privacy policy |
 
-## Identity
+Icons and the flag strip are the live site's own files, in `src/assets/site/`.
 
-- **Company:** Mobilynx
-- **Live domain:** mobilynx.io
-- **Contact email:** `sales@mobilynx.io` (used in nav, contact section, footer)
-- **Footer line:** `© 2026 Mobilynx. All rights reserved.`
+## Pages
 
-> Note: the user once wrote the domain as "mobylinks.io" — the real domain is **mobilynx.io**. Email is **sales@mobilynx.io**.
+`/` and `/privacy` — the live site has no others. The privacy policy in `src/content/privacy.js` is the
+published text, word for word.
 
-## Verticals (the three we specialize in)
+## Contact
 
-1. **Mobile app promotion**
-2. **VPN & privacy apps**
-3. **E-commerce**
-
-## Headline stats — FIXED, do not inflate
-
-| Stat | Value | Note |
-|------|-------|------|
-| Daily ad impressions | **20M+** | User cut this down from an original "2B+". Never restore billions. |
-| GEOs | **20+** | User cut this from "195+". Keep at 20+. |
-| (third stat) | **99%** | |
-| (fourth stat) | **24/7** | |
-
-(Rendered via `data-count` / `data-suffix` counters in `index.html`.)
-
-## Section copy (headings)
-
-- Solutions: **"Built for the verticals we know best"**
-- Traffic sources: **"Three powerful traffic channels"** — POP · PUSH · IN-APP
-- Targeting: **"Pinpoint targeting, optimized every second."**
-- Pricing: **"Performance-based pricing models"** — CPA · CPI · CPL · CPS
-- Contact: **"Ready to scale your traffic?"**
-
-## Pages / routes
-
-`/` home · `/privacy` · `/terms` · `/cookies` · `/gdpr` · `/*` 404.
-Legal pages use `LegalLayout.vue` with slot prose; all contact links point to `sales@mobilynx.io`.
-
-## Deploy
-
-Repo: https://github.com/MrNedNick/mobilynx-landing · published to https://mrnednick.github.io/mobilynx-landing/ via GitHub Actions.
-
-## Rules
-
-- Keep all original content from mobilynx.io unless the user asks to change it.
-- English copy (audience is international, even though the user communicates in Russian).
+The site has no backend. The form opens the visitor's email app with a message to `sales@mobilynx.io`;
+the live site's app-owner address `hanna@mobilynx.io` stays in its own sentence.
