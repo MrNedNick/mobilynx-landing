@@ -30,6 +30,8 @@ jobs:
       # SPA fallback: GitHub Pages serves 404.html for unknown paths,
       # which boots the app so deep links like /privacy work on refresh.
       - run: cp dist/index.html dist/404.html
+      # The one real subpage gets its own file so it answers 200, not 404.
+      - run: mkdir -p dist/privacy && cp dist/index.html dist/privacy/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
