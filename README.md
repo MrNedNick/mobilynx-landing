@@ -1,6 +1,6 @@
 # Mobilynx Landing
 
-The website of **Mobilynx**, an advertising agency selling mobile + desktop traffic — POP, PUSH and in-app — for installs, registrations, sign-ups and deposits.
+A redesign of the website of **Mobilynx**, an advertising agency selling mobile + desktop traffic — POP, PUSH and in-app — for installs, registrations, sign-ups and deposits.
 
 **[Open the site](https://mrnednick.github.io/mobilynx-landing/)**
 
