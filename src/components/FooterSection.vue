@@ -2,11 +2,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <router-link to="/" class="logo">
-        <div class="logo-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M4 19V6l8 9 8-9v13" stroke="#04190F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
+        <img :src="logoMark" alt="" class="logo-icon" width="32" height="32">
         <span class="gradient-text">Mobilynx</span>
       </router-link>
       <span class="footer-copy">© 2026 Mobilynx. All rights reserved.</span>
@@ -14,6 +10,10 @@
     </div>
   </footer>
 </template>
+
+<script setup>
+import logoMark from '../assets/site/logo-mark.png'
+</script>
 
 <style scoped>
 .footer {
@@ -42,10 +42,8 @@
   width: 32px;
   height: 32px;
   border-radius: 9px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  flex-shrink: 0;
 }
 .footer-copy { margin-left: auto; }
 .footer-link { color: var(--text-muted); transition: color 0.2s; }

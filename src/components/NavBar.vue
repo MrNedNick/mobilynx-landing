@@ -2,11 +2,7 @@
   <header :class="['navbar', { scrolled: isScrolled }]">
     <div class="container nav-inner">
       <router-link to="/" class="logo">
-        <div class="logo-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M4 19V6l8 9 8-9v13" stroke="#04190F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
+        <img :src="logoMark" alt="" class="logo-icon" width="36" height="36">
         <span class="logo-name">Mobilynx</span>
       </router-link>
 
@@ -28,6 +24,7 @@
 </template>
 
 <script setup>
+import logoMark from '../assets/site/logo-mark.png'
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
@@ -92,10 +89,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  flex-shrink: 0;
 }
 .logo-name {
   font-size: 1.25rem;
