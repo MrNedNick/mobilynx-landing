@@ -3,6 +3,8 @@ import { mount } from '@vue/test-utils'
 import { createRouter, createMemoryHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FooterSection from '../components/FooterSection.vue'
+import NavBar from '../components/NavBar.vue'
+import ContactUs from '../components/ContactUs.vue'
 import { privacy } from '../content/privacy'
 import { mailtoLink } from '../lib/contact'
 
@@ -78,6 +80,21 @@ describe('home page content', () => {
     const footer = await render(FooterSection)
     expect(footer.text()).toContain('© 2026 Mobilynx. All rights reserved.')
     expect(footer.find('a[href="/privacy"]').text()).toBe('Privacy policy')
+  })
+
+  it('shows the live site\'s M mark in the header and footer', async () => {
+    for (const component of [NavBar, FooterSection]) {
+      const mark = (await render(component)).find('.logo img')
+      expect(mark.attributes('src')).toMatch(/logo-mark/)
+      expect(mark.attributes('alt')).toBe('')
+    }
+  })
+
+  it('asks for name and email the way the live form does', async () => {
+    const form = await render(ContactUs)
+    expect(form.find('#contact-name').attributes('required')).toBeDefined()
+    expect(form.find('#contact-email').attributes('required')).toBeDefined()
+    expect(form.find('#contact-message').attributes('required')).toBeUndefined()
   })
 })
 

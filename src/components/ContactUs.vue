@@ -28,11 +28,11 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="contact-name">Name</label>
-                <input id="contact-name" v-model="form.name" type="text" name="name" placeholder="Your name" autocomplete="name" />
+                <input id="contact-name" v-model="form.name" type="text" name="name" placeholder="Your name" autocomplete="name" required />
               </div>
               <div class="form-group">
                 <label for="contact-email">Email</label>
-                <input id="contact-email" v-model="form.email" type="email" name="email" placeholder="Your e-mail" autocomplete="email" />
+                <input id="contact-email" v-model="form.email" type="email" name="email" placeholder="Your e-mail" autocomplete="email" required />
               </div>
             </div>
 
